@@ -1,0 +1,90 @@
+/**
+ * SigaTI - Estilos Globales Personalizados
+ */
+
+:root {
+    --primary-color: #0d6efd;
+    --dark-blue: #1a365d;
+    --bg-light: #f4f6f9;
+    --text-muted: #6c757d;
+}
+
+body {
+    background-color: var(--bg-light);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Contenedor del Login Centrado */
+.login-wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    background: #ffffff;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 420px;
+    padding: 2.5rem 2rem;
+}
+
+.login-logo-box {
+    color: var(--primary-color);
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Ajustes para inputs con iconos incorporados (estilo Bootstrap input-group) */
+.input-group-custom {
+    position: relative;
+    margin-bottom: 1.25rem;
+}
+
+.input-group-custom .form-control {
+    padding-left: 2.75rem;
+    height: 50px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.input-group-custom .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+
+.input-group-custom .input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    z-index: 4;
+}
+
+/* Botón de Acceso Principal */
+.btn-access {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    height: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-access:hover {
+    background-color: #0b5ed7;
+    color: #ffffff;
+}
+
+.login-footer-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 2rem;
+}

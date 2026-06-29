@@ -1,0 +1,49 @@
+sigati/
+│
+├── config/                 # Configuración global del sistema
+│   ├── database.php        # Conexión a la base de datos (PDO)
+│   └── config.php          # Constantes globales (URLs, nombres, rutas)
+│
+├── core/                   # Clases base del sistema (El "motor")
+│   ├── App.php             # Enrutador principal (Router)
+│   ├── Controller.php      # Controlador base
+│   └── Database.php        # Wrapper de la base de datos
+│
+├── src/                    # Código fuente de la aplicación (MVC)
+│   ├── Controllers/        # Controladores (Procesan las peticiones)
+│   │   ├── AuthController.php      # Login/Logout del Administrador
+│   │   ├── ActivosController.php   # CRUD de fichas técnicas y cálculo de obsolescencia
+│   │   ├── MantenimientoController.php # Registros en la bitácora y cambios de periféricos
+│   │   └── ReportesController.php  # Lógica de los dashboards ejecutivos
+│   │
+│   ├── Models/             # Modelos (Interacción directa con la BD)
+│   │   ├── Usuario.php
+│   │   ├── Activo.php
+│   │   ├── Bitacora.php
+│   │   └── Catalogo.php    # Manejo de Secciones, Espacios y SO
+│   │
+│   └── Views/              # Vistas (Plantillas HTML/interfaz de usuario)
+│       ├── auth/
+│       │   └── login.php   # Pantalla de inicio de sesión
+│       ├── layouts/
+│       │   ├── header.php  # Barra de navegación superior y menús
+│       │   └── footer.php  # Cierre de etiquetas y scripts JS
+│       ├── activos/
+│       │   ├── index.php   # Lista general de equipos (Semáforos visibles)
+│       │   ├── crear.php   # Formulario de alta de ficha técnica
+│       │   └── ver.php     # Detalle del activo e historial de bitácora
+│       ├── bitacora/
+│       │   └── registrar.php # Formulario de acciones técnicas / Periféricos
+│       └── reportes/
+│           ├── seccion.php # Vista de alta dirección (Métricas globales)
+│           └── aula.php    # Vista operativa por espacio físico
+│
+├── public/                 # Única carpeta accesible desde el navegador (Seguridad)
+│   ├── css/
+│   │   └── custom.css      # Estilos personalizados (p. ej., colores de semáforos)
+│   ├── js/
+│   │   └── main.js         # Funciones y alertas de la interfaz
+│   ├── .htaccess           # Configuración de Apache para URL limpias (Apunta a index.php)
+│   └── index.php           # El Front Controller (Punto de entrada único)
+│
+└── .htaccess               # Redirección de la raíz del proyecto hacia /public
