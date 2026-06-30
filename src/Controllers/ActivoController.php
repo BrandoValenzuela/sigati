@@ -28,6 +28,12 @@ class ActivoController {
      */
     public function mostrarFormularioCrear($mensajeError = "") {
         $pageTitle = "Registrar Nuevo Activo";
+
+        // 1. Cargamos las ubicaciones detalladas desde el modelo
+        $ubicaciones = $this->modelo->obtenerUbicacionesCompletas();
+        
+        // 2. Cargamos los sistemas operativos (puedes mantenerlo como input o query simple)
+        $sistemasOperativos = $this->modelo->obtenerSistemasOperativos();
         
         include __DIR__ . '/../Views/layouts/header.php';
         include __DIR__ . '/../Views/activos/crear.php'; // Vista exclusiva del Formulario

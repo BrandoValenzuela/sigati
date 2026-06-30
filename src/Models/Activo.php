@@ -69,13 +69,52 @@ class Activo {
             $sqlVencidos = "SELECT COUNT(*) FROM activos WHERE fecha_ultimo_preventivo < DATE_SUB(NOW(), INTERVAL 180 DAY)";
             $metricas['vencidos'] = (int)$this->db->query($sqlVencidos)->fetchColumn();
 
-            // 3. Cálculo del semáforo operativo
+            // 3. KPI DINÁMICA: Equipos actualmente en mantenimiento / taller
+            // Cuenta los códigos únicos de equipo en la bitácora que no tienen aún una acción técnica registrada
+            $sqlMantenimiento = "SELECT COUNT(DISTINCT id_equipo) 
+                                 FROM bitacora_mantenimiento 
+                                 WHERE accion_tecnica IS NULL OR TRIM(accion_tecnica) = ''";
+            $metricas['mantenimiento'] = (int)$this->db->query($sqlMantenimiento)->fetchColumn();
+
+            // 4. Cálculo del semáforo operativo
             $metricas['operativos'] = $metricas['total'] - $metricas['vencidos'];
+
+            
             
             return $metricas;
         } catch (PDOException $e) {
             // En caso de error, devolvemos el array en ceros para no romper la vista
             return $metricas;
+        }
+    }
+
+    /**
+     * Obtiene el listado de espacios físicos cruzados con su sección institucional
+     */
+    public function obtenerUbicacionesCompletas() {
+        try {
+            // Consulta exacta uniendo tus dos tablas mediante id_seccion
+            $sql = "SELECT e.id_espacio, e.nombre_espacio, s.nombre_seccion 
+                    FROM espacios_fisicos e
+                    INNER JOIN secciones s ON e.id_seccion = s.id_seccion
+                    ORDER BY s.nombre_seccion ASC, e.nombre_espacio ASC";
+            
+            $stmt = $this->db->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+    /**
+     * Obtiene el listado completo de sistemas operativos
+     */
+    public function obtenerSistemasOperativos() {
+        try {
+            $sql = "SELECT id_so, nombre_so FROM sistemas_operativos ORDER BY nombre_so ASC";
+            $stmt = $this->db->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return [];
         }
     }
 }
