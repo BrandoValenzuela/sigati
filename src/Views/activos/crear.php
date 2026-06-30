@@ -121,10 +121,39 @@ if (count(get_included_files()) === 1) exit("Acceso denegado.");
                     </h5>
 
                     <div class="mb-3">
-                        <label for="procesador" class="form-label fw-semibold">Procesador</label>
-                        <input type="text" class="form-control" id="procesador" name="procesador" 
-                               placeholder="Ej: Intel Core i5-11400 / AMD Ryzen 5"
-                               value="<?php echo isset($_POST['procesador']) ? htmlspecialchars($_POST['procesador']) : ''; ?>" required>
+                        <label for="procesador" class="form-label fw-semibold">Procesador *</label>
+                        <input type="text" class="form-control" id="procesador" name="procesador" required 
+                               list="procesadores_sugeridos" 
+                               placeholder="Ej: Intel Core i5 11a Gen"
+                               value="<?php echo isset($_POST['procesador']) ? htmlspecialchars($_POST['procesador']) : ''; ?>">
+                        
+                        <datalist id="procesadores_sugeridos">
+                            <option value="Intel Core i3 7a Gen">
+                            <option value="Intel Core i5 7a Gen">
+                            <option value="Intel Core i7 7a Gen">
+                            <option value="Intel Core i3 8a Gen">
+                            <option value="Intel Core i5 8a Gen">
+                            <option value="Intel Core i3 10a Gen">
+                            <option value="Intel Core i5 10a Gen">
+                            <option value="Intel Core i3 11a Gen">
+                            <option value="Intel Core i5 11a Gen">
+                            <option value="Intel Core i7 11a Gen">
+                            <option value="Intel Core i5 12a Gen">
+                            
+                            <option value="Intel Celeron N4000 Series">
+                            <option value="Intel Celeron N5000 Series">
+                            <option value="Intel Celeron G Series (Desktop)">
+                            <option value="Intel Celeron J Series">
+                            
+                            <option value="AMD Ryzen 3 Serie 3000">
+                            <option value="AMD Ryzen 5 Serie 3000">
+                            <option value="AMD Ryzen 3 Serie 4000">
+                            <option value="AMD Ryzen 5 Serie 4000">
+                            <option value="AMD Ryzen 5 Serie 5000">
+                            <option value="AMD Ryzen 7 Serie 5000">
+                            <option value="AMD Ryzen 5 Serie 7000">
+                        </datalist>
+                        <div class="form-text">Usa las sugerencias para asegurar que el semáforo de obsolescencia calcule el estado correcto en los reportes.</div>
                     </div>
 
                     <div class="mb-3">

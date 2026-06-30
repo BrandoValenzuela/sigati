@@ -62,4 +62,27 @@ class ActivoController {
             $this->mostrarFormularioCrear($e->getMessage());
         }
     }
+    
+    public function listarActivos() {
+        // Si viene un ID de sección por URL, mostramos la tabla detallada (Paso 3)
+        if (isset($_GET['id_seccion'])) {
+            $id_seccion = (int)$_GET['id_seccion'];
+            $pageTitle = "Detalle de Activos - Sección";
+            
+            // Método pendiente que traerá la tabla de equipos filtrada por sección
+            $activos = $this->modelo->obtenerActivosPorSeccion($id_seccion); 
+            
+            include __DIR__ . '/../Views/layouts/header.php';
+            include __DIR__ . '/../Views/activos/detalle_seccion.php';
+            include __DIR__ . '/../Views/layouts/footer.php';
+        } else {
+            // Si no hay sección elegida, pintamos el Dashboard de Segundo Nivel (Paso 2)
+            $pageTitle = "Resumen de Inventario por Secciones";
+            $resumenSecciones = $this->modelo->obtenerResumenObsolescenciaPorSeccion();
+
+            include __DIR__ . '/../Views/layouts/header.php';
+            include __DIR__ . '/../Views/activos/resumen_secciones.php'; // Tu nueva vista con las tarjetas
+            include __DIR__ . '/../Views/layouts/footer.php';
+        }
+    }
 }

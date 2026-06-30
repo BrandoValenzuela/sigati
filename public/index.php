@@ -56,6 +56,10 @@ switch ($action) {
         $activoController->procesarAlta($_POST);
         break;
 
+    case 'ver_activos':
+        $activoController->listarActivos($_POST);
+        break;
+
     default:
         header("Location: index.php?action=dashboard");
         exit();

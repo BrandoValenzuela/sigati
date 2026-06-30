@@ -117,4 +117,41 @@ class Activo {
             return [];
         }
     }
+/**
+     * Obtiene el resumen gerencial por secciones mapeando obsolescencia sin duplicados.
+     */
+    public function obtenerResumenObsolescenciaPorSeccion() {
+        try {
+            $sql = "SELECT 
+                        s.id_seccion,
+                        s.nombre_seccion,
+                        COUNT(DISTINCT a.id_equipo) AS total_equipos,
+                        
+                        -- Contamos de forma única asegurando que el ID no se repita en la agregación
+                        COUNT(DISTINCT CASE WHEN p.estatus_ciclo_vida = 'ÓPTIMO' THEN a.id_equipo END) AS optimos,
+                        
+                        -- Si el equipo no tiene match o es funcional con reservas, cae aquí de forma única
+                        COUNT(DISTINCT CASE WHEN a.id_equipo IS NOT NULL AND (p.estatus_ciclo_vida IS NULL OR p.estatus_ciclo_vida = 'FUNCIONAL CON RESERVAS') THEN a.id_equipo END) AS reservas,
+                        
+                        -- Contamos obsoletos de forma única
+                        COUNT(DISTINCT CASE WHEN p.estatus_ciclo_vida = 'OBSOLETO' THEN a.id_equipo END) AS obsoletos
+                    FROM secciones s
+                    LEFT JOIN espacios_fisicos e ON s.id_seccion = e.id_seccion
+                    LEFT JOIN activos a ON e.id_espacio = a.id_espacio
+                    -- Agregamos una subconsulta o priorizamos el primer match para evitar la multiplicación de filas
+                    LEFT JOIN parametros_obsolescencia p ON p.id_parametro = (
+                        SELECT p2.id_parametro 
+                        FROM parametros_obsolescencia p2 
+                        WHERE a.procesador LIKE p2.patron_procesador 
+                        LIMIT 1
+                    )
+                    GROUP BY s.id_seccion, s.nombre_seccion
+                    ORDER BY s.nombre_seccion ASC";
+
+            $stmt = $this->db->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
 }

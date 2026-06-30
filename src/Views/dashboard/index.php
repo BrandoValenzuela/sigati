@@ -18,6 +18,7 @@
 
     <div class="row g-4 mb-5">
         <div class="col-12 col-sm-6 col-xl-3">
+            <a href="index.php?action=ver_activos" class="text-decoration-none">
             <div class="card card-kpi kpi-total p-4">
                 <div class="d-flex justify-content-between align-items-start mb-2">
                     <span class="kpi-title">Total Activos</span>
@@ -25,6 +26,7 @@
                 </div>
                 <span class="kpi-value"><?php echo $kpis['total']; ?></span>
             </div>
+            </a>
         </div>
 
         <div class="col-12 col-sm-6 col-xl-3">
