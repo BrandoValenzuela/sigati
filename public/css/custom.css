@@ -88,3 +88,64 @@ body {
     color: var(--text-muted);
     margin-top: 2rem;
 }
+
+/* --- TARJETAS KPIs ENERGETIZADAS --- */
+.card-kpi {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-kpi:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Fondos y bordes personalizados por categoría */
+.kpi-total { 
+    /* background-color: #f0f7ff;  */
+    border-top: 4px solid #0d6efd;
+}
+.kpi-operativos { 
+    /* background-color: #f0fdf4;  */
+    border-top: 4px solid #198754;
+}
+.kpi-mantenimiento { 
+    /* background-color: #fffde7;  */
+    border-top: 4px solid #ffc107;
+}
+.kpi-vencidos { 
+    /* background-color: #fff5f5;  */
+    border-top: 4px solid #dc3545;
+}
+
+.kpi-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #5c636a;
+}
+
+/* Contadores masivos y dominantes */
+.kpi-value {
+    font-size: 3.5rem; /* Tamaño incrementado */
+    font-weight: 800;  /* Más grueso */
+    line-height: 1.1;
+    display: block;
+}
+
+/* Colores específicos para los números */
+.kpi-total .kpi-value { color: #0b5ed7; }
+.kpi-operativos .kpi-value { color: #146c43; }
+.kpi-mantenimiento .kpi-value { color: #b58100; }
+.kpi-vencidos .kpi-value { color: #b02a37; }
+
+/* Iconos de fondo estilizados */
+.kpi-icon {
+    font-size: 2.5rem;
+    opacity: 0.25;
+}

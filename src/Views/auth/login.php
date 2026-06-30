@@ -26,7 +26,7 @@ include __DIR__ . '/../layouts/header.php';
                     </div>
                 <?php endif; ?>
 
-                <form action="" method="POST" autocomplete="off">
+                <form action="index.php?action=procesar_login" method="POST" autocomplete="off">
                     
                     <div class="input-group-custom">
                         <i class="bi bi-envelope input-icon"></i>
@@ -38,7 +38,7 @@ include __DIR__ . '/../layouts/header.php';
                         <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required>
                     </div>
 
-                    <button type="submit" name="btn_login" class="btn btn-access w-100 d-flex align-items-center justify-content-center gap-2">
+                    <button type="submit" class="btn btn-access w-100 d-flex align-items-center justify-content-center gap-2">
                         <i class="bi bi-laptop"></i> Acceder al Sistema
                     </button>
                 </form>
