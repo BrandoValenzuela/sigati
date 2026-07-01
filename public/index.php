@@ -60,6 +60,10 @@ switch ($action) {
         $activoController->listarActivos($_POST);
         break;
 
+    case 'listar_activos':
+        $activoController->listarActivosPorSeccion($_POST);
+        break;
+
     default:
         header("Location: index.php?action=dashboard");
         exit();

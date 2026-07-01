@@ -62,7 +62,7 @@ class ActivoController {
             $this->mostrarFormularioCrear($e->getMessage());
         }
     }
-    
+
     public function listarActivos() {
         // Si viene un ID de sección por URL, mostramos la tabla detallada (Paso 3)
         if (isset($_GET['id_seccion'])) {
@@ -82,6 +82,33 @@ class ActivoController {
 
             include __DIR__ . '/../Views/layouts/header.php';
             include __DIR__ . '/../Views/activos/resumen_secciones.php'; // Tu nueva vista con las tarjetas
+            include __DIR__ . '/../Views/layouts/footer.php';
+        }
+    }
+
+    public function listarActivosPorSeccion() {
+        if (isset($_GET['id_seccion'])) {
+            $id_seccion = (int)$_GET['id_seccion'];
+            
+            // Usamos el mismo modelo de activos para traer el nombre de la sección
+            $nombreSeccion = $this->modelo->obtenerNombreSeccion($id_seccion); 
+            $pageTitle = "Inventario - " . $nombreSeccion;
+            
+            // Traemos los activos filtrados de forma única
+            $activos = $this->modelo->obtenerActivosPorSeccion($id_seccion); 
+            
+            // print_r($activos);
+
+            include __DIR__ . '/../Views/layouts/header.php';
+            include __DIR__ . '/../Views/activos/detalle_seccion.php';
+            include __DIR__ . '/../Views/layouts/footer.php';
+        } else {
+            // Carga del Dashboard de Segundo Nivel (Tarjetas)
+            $pageTitle = "Resumen de Inventario por Secciones";
+            $resumenSecciones = $this->modelo->obtenerResumenObsolescenciaPorSeccion();
+
+            include __DIR__ . '/../Views/layouts/header.php';
+            include __DIR__ . '/../Views/activos/resumen_secciones.php';
             include __DIR__ . '/../Views/layouts/footer.php';
         }
     }

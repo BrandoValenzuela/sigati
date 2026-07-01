@@ -48,7 +48,7 @@
 
                         <!-- Acción para bajar al detalle -->
                         <div class="mt-3">
-                            <a href="index.php?action=ver_activos&id_seccion=<?php echo $sec['id_seccion']; ?>" 
+                            <a href="index.php?action=listar_activos&id_seccion=<?php echo $sec['id_seccion']; ?>" 
                                class="btn btn-outline-primary w-100 fw-semibold d-flex align-items-center justify-content-center gap-2">
                                 Ver Equipos <i class="bi bi-arrow-right-short"></i>
                             </a>

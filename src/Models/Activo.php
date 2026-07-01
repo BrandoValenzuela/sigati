@@ -154,4 +154,52 @@ class Activo {
             return [];
         }
     }
+    /**
+     * Obtiene todos los activos pertenecientes a una sección específica,
+     * calculando su obsolescencia de manera única.
+     */
+    public function obtenerActivosPorSeccion($id_seccion) {
+        try {
+            $sql = "SELECT 
+                        a.id_equipo,
+                        a.tipo_equipo,
+                        a.procesador,
+                        e.nombre_espacio,
+                        so.nombre_so,
+                        p.estatus_ciclo_vida,
+                        p.accion_sugerida
+                    FROM activos a
+                    INNER JOIN espacios_fisicos e ON a.id_espacio = e.id_espacio
+                    LEFT JOIN sistemas_operativos so ON a.id_so = so.id_so
+                    LEFT JOIN parametros_obsolescencia p ON p.id_parametro = (
+                        SELECT p2.id_parametro 
+                        FROM parametros_obsolescencia p2 
+                        WHERE a.procesador LIKE p2.patron_procesador 
+                        LIMIT 1
+                    )
+                    WHERE e.id_seccion = :id_seccion
+                    ORDER BY a.id_equipo ASC";
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':id_seccion' => $id_seccion]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return [];
+        }
+    }
+    /**
+     * Obtiene el nombre de una sección directamente para los títulos de la interfaz.
+     */
+    public function obtenerNombreSeccion($id_seccion) {
+        try {
+            $sql = "SELECT nombre_seccion FROM secciones WHERE id_seccion = :id_seccion LIMIT 1";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':id_seccion' => $id_seccion]);
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            return $resultado ? $resultado['nombre_seccion'] : 'Desconocida';
+        } catch (PDOException $e) {
+            return 'Detalle';
+        }
+    }
 }
